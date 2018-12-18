@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>爬虫平台后台管理</title>
+    <link rel="stylesheet" type="text/css" href="../../static/admin/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="../../static/admin/css/main.css">
+    <link rel="stylesheet" href="../../static/admin/css/jquery.pagination.css">
+    <script type="text/javascript" src="../../static/admin/js/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="../../static/admin/js/jquery.pagination.min.js"></script>
+</head>
+<body>
+<div class="breadcrub">
+    当前位置：爬虫管理>爬虫列表
+    <form class="news_filter_form">
+        <input type="text" placeholder="请输入关键字" class="input_txt" name="keywords">
+        <input type="submit" value="搜 索" class="input_sub">
+    </form>
+</div>
+<div class="pannel">
+    <table class="common_table">
+        <tr>
+            <th>ID</th>
+            <th>广告链接</th>
+            <th>后台链接</th>
+            <th>登陆链接</th>
+            <th>爬虫类型</th>
+            <th>解析方法</th>
+            <th>解析规则</th>
+            <th>登陆请求头</th>
+            <th>登陆表单数据</th>
+            <th>详情链接</th>
+            <th>详情页请求头</th>
+            <th>详情页表单数据</th>
+            <th>验证码链接</th>
+            <th>创建时间</th>
+            <th>更新时间</th>
+        </tr>
+        {% for web in data.users %}
+            <tr>
+                <td>{{ web.id }}</td>
+{#                <td>{{ web.ad_url }}</td>#}
+                <td>{{ web.back_url }}</td>
+                <td>{{ web.login_url }}</td>
+                <td>{{ web.spider_type }}</td>
+                <td>{{ web.parse_method }}</td>
+{#                <td>{{ web.rule }}</td>#}
+{#                <td>{{ web.login_header }}</td>#}
+{#                <td>{{ web.form_data }}</td>#}
+{#                <td>{{ web.post_url }}</td>#}
+{#                <td>{{ web.post_header }}</td>#}
+{#                <td>{{ web.post_data }}</td>#}
+{#                <td>{{ web.img_url }}</td>#}
+{#                <td>{{ web.create_time }}</td>#}
+{#                <td>{{ web.update_time }}</td>#}
+            </tr>
+        {% endfor %}
+
+    </table>
+</div>
+
+<div class="box">
+    <div id="pagination" class="page"></div>
+</div>
+
+<script>
+    $(function () {
+        $("#pagination").pagination({
+            currentPage: {{ data.current_page }},
+            totalPage: {{ data.total_page }},
+            callback: function (current) {
+                window.location.href = '/admin/user_list?p=' + current
+            }
+        });
+    });
+</script>
+</body>
+</html>

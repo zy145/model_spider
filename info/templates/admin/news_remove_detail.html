@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>爬虫平台后台管理</title>
+    <link rel="stylesheet" type="text/css" href="../../static/admin/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="../../static/admin/css/main.css">
+    <script type="text/javascript" src="../../static/admin/js/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="../../static/admin/js/jquery.form.min.js"></script>
+    <script src="../../static/admin/tinymce/js/tinymce/tinymce.min.js"></script>
+    <script src="../../static/admin/js/tinymce_setup.js"></script>
+    <script src="../../static/admin/js/news_remove_detail.js"></script>
+</head>
+<body>
+<div class="breadcrub">
+    当前位置：爬虫管理>爬虫任务删除
+</div>
+<div class="pannel">
+    <form class="news_edit">
+        <h3 class="review_title">爬虫任务编辑</h3>
+
+
+        <div class="form_group">
+            <label>广告链接：</label>
+            <input name="ad_url" type="text" class="input_txt2" value="{{ data.news.ad_url }}">
+        </div>
+        <div class="form_group">
+            <label>后台链接：</label>
+            <input name="back_url" type="text" class="input_txt2" value="{{ data.news.back_url }}">
+        </div>
+        <div class="form_group">
+            <label>登陆链接：</label>
+            <input name="login_url" type="text" class="input_txt2" value="{{ data.news.login_url }}">
+        </div>
+        <div class="form_group">
+            <label>爬虫类型：</label>
+            <select class="sel_opt" name="spider_type">
+                    <option value="{{ data.news.spider_type }}"
+                            {% if data.news.is_selected %}selected{% endif %}>{{ data.news.spider_type }}</option>
+                {% for category in data.categories %}
+                    <option value="{{ category.type }}">{{ category.type }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form_group">
+            <label>解析方法：</label>
+            <select class="sel_opt" name="parse_method">
+                <option value="{{ data.news.parse_method }}"
+                            {% if data.news.is_selected %}selected{% endif %}>{{ data.news.parse_method }}</option>
+                {% for method in data.methods %}
+                    <option value="{{ method.value }}">{{ method.value }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form_group">
+            <label>解析规则：</label>
+            <input name="rule" type="text" class="input_txt2" value="{{ data.news.rule }}">
+        </div>
+        <div class="form_group">
+            <label>登陆请求头：</label>
+            <textarea class="input_multxt" name="login_header">{{ data.news.login_header }}</textarea>
+        </div>
+        <div class="form_group">
+            <label>登陆表单数据：</label>
+            <textarea class="input_multxt" name="form_data">{{ data.news.form_data }}</textarea>
+        </div>
+        <div class="form_group">
+            <label>详情链接：</label>
+            <input name="post_url" type="text" class="input_txt2" value="{{ data.news.post_url }}">
+        </div>
+        <div class="form_group">
+            <label>详情页请求头：</label>
+            <textarea class="input_multxt" name="post_header">{{ data.news.post_header }}</textarea>
+        </div>
+        <div class="form_group">
+            <label>详情页表单数据：</label>
+            <textarea class="input_multxt" name="post_data">{{ data.news.post_data }}</textarea>
+        </div>
+        <div class="form_group">
+            <label>验证码链接：</label>
+            <textarea class="input_multxt" name="img_url">{{ data.news.img_url }}</textarea>
+        </div>
+
+
+        <div class="form_group indent_group line_top">
+            <input type="submit" value="确定删除" class="confirm">
+            <input type="button" value="取消删除" class="cancel" onclick="cancel()">
+        </div>
+
+    <input type="hidden" name="news_id" value="{{ data.news.id }}">
+    </form>
+</div>
+
+</body>
+</html>

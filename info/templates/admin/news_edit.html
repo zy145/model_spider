@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>爬虫平台后台管理</title>
+    <link rel="stylesheet" type="text/css" href="../../static/admin/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="../../static/admin/css/main.css">
+    <link rel="stylesheet" type="text/css" href="../../static/news/css/main.css">
+    <link rel="stylesheet" href="../../static/admin/css/jquery.pagination.css">
+    <script type="text/javascript" src="../../static/admin/js/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="../../static/admin/js/jquery.pagination.min.js"></script>
+    <script type="text/javascript" src="../../static/news/js/detail.js"></script>
+</head>
+<body>
+<div class="breadcrub">
+    当前位置：爬虫管理>爬虫任务管理
+    <form class="news_filter_form">
+        <input type="text" placeholder="请输入关键字" class="input_txt" name="keywords">
+        <input type="submit" value="搜 索" class="input_sub">
+    </form>
+</div>
+
+<div class="pannel">
+    <table class="common_table">
+        <tr>
+            <th width="5%">id</th>
+            <th width="35%">广告链接</th>
+            <th width="35%">后台链接</th>
+            <th width="15%">状态</th>
+            <th width="10%">管理操作</th>
+        </tr>
+        {% for webs in data.news_list %}
+            <tr>
+                <td>{{ webs.id }}</td>
+                <td class="tleft"><a href="javascript:;" target="_blank">{{ webs.ad_url }}</a></td>
+                <td>{{ webs.back_url }}</td>
+                <td>
+                    <a href="javascript:;" class="collected block-center" data-newid="{{ webs.id }}" style="display: {% if webs.status=="1" %} block
+            {% else %} none {% endif %};"><span class="out">已开启</span><span class="over">取消开启</span></a>
+                    <a href="javascript:;" class="collection block-center" data-newid="{{ webs.id  }}" style="display: {% if webs.status=="1" %} none
+            {% else %} block {% endif %};">开启</a>
+                </td>
+                <td>
+                    <a href="{{ url_for('admin.news_edit_detail') }}?news_id={{ webs.id }}" class="edit">编辑</a>
+                    <a href="{{ url_for('admin.news_remove_detail') }}?news_id={{ webs.id }}" class="update">删除</a>
+                </td>
+            </tr>
+        {% endfor %}
+        <tr>
+            <td colspan="3"><a href="{{ url_for('admin.news_type') }}" class="addtype">增加爬虫</a></td>
+        </tr>
+    </table>
+</div>
+
+<div class="box">
+    <div id="pagination" class="page"></div>
+</div>
+
+<script>
+    $(function () {
+        $("#pagination").pagination({
+            currentPage: {{ data.current_page }},
+            totalPage: {{ data.total_page }},
+            callback: function(current) {
+                window.location = '/admin/news_edit?p=' + current
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
